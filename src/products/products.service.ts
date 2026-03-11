@@ -16,6 +16,13 @@ export class ProductsService {
         return this.productsRepository.find();
     }
 
+    async findLowStock(): Promise<Product[]> {
+        return this.productsRepository
+            .createQueryBuilder('product')
+            .where('product.quantity < product.minThreshold')
+            .getMany();
+    }
+
     async findOne(id: number): Promise<Product> {
         const product = await this.productsRepository.findOneBy({ id });
         if (!product) {
