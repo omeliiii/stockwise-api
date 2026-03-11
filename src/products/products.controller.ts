@@ -22,6 +22,11 @@ export class ProductsController {
         return this.productsService.findAll();
     }
 
+    @Get('low-stock')
+    findLowStock(): Promise<Product[]> {
+        return this.productsService.findLowStock();
+    }
+
     @Get(':id')
     findOne(@Param('id', ParseIntPipe) id: number): Promise<Product> {
         return this.productsService.findOne(id);
